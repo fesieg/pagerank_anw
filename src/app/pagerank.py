@@ -54,16 +54,20 @@ class Graph:
          """
         self.nodes = nodes
 
-    def output(self):
+    def output(self, verbose: bool):
         """
         function output
+        :param verbose bool: specifies whether script should access the local db to extract node titles
         prints nodes and their values to the screen
         :return return_string String current status of nodes
         """
         return_string = ""
         total_value = 0
         for n in self.nodes:
-            return_string += f"page_title = {n.get_own_title_from_db()} page_id = {n.id} \n PageRank-Value = {n.rank_value} \n"
+            if verbose:
+                return_string += f"page_title = {n.get_own_title_from_db()} page_id = {n.id} \n PageRank-Value = {n.rank_value} \n"
+            else:
+                return_string += f"page_id = {n.id} \n PageRank-Value = {n.rank_value} \n"
             total_value += n.rank_value
         return_string += f"\n TOTAL VALUE: {str(round(total_value, 6))} \n"
         return return_string, total_value
@@ -147,8 +151,8 @@ class PageRankApp:
                 node.rank_value = (1 - self.dampening_factor) + self.dampening_factor * temp_sum
 
             if self.verbose:
-                print("ITERATION " + str(_) + "\n " + self.graph.output() + "~~~~~~~~~~~~ \n")
+                print("ITERATION " + str(_) + "\n " + self.graph.output(self.verbose) + "~~~~~~~~~~~~ \n")
         
-        self.result = self.graph.output()[1]
-        print(f"FINAL NODE STATUS\n {self.graph.output()[0]}")
+        self.result = self.graph.output(self.verbose)[1]
+        print(f"FINAL NODE STATUS\n {self.graph.output(self.verbose)[0]}")
         
