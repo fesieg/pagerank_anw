@@ -35,6 +35,9 @@ class PageNode:
         # 2) Get title by id from database file, increment id by 1 to align with mediawiki scheme
         cur.execute("SELECT page_title from page WHERE page_id = ?", (self.id + 1,))
         result = cur.fetchone()
+
+        del cur
+        del conn
         
         # 3) Return the page title
         return result[0]
