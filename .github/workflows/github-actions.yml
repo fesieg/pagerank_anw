@@ -1,32 +1,41 @@
-name: build_and_test
+name: build_and_test_python
+
 on: [push]
+
 jobs:
   build:
-   runs-on: ${{ matrix.os }}
-   strategy:
-    matrix:
-      os: [macos-latest, ubuntu-latest, windows-latest]
-      python-version: ['3.6', '3.7', '3.8', '3.9']
-  steps:
-    - uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        python-version: [3.6, 3.7, 3.8, 3.9]
 
-    - name: Display Python version
-      run: python -c "import sys; print(sys.version)"
+    steps:
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - run: echo "RUNNING ON ${{ runner.os }} ---"
-    - run: echo "BRANCH NAME IS ${{ github.ref }} ---"
-    - name: Check out repository code
-      uses: actions/checkout@v2
-    - run: echo "REPOSITORY CLONED ${{ github.repository }} --- "
-    - name: List files in the repository
-      run: |
-        ls ${{ github.workspace }}
-        
-    - run: python my_script.py
-  
-    - run: echo "RESULT = ${{ job.status }} --- "
+      
+      - run: echo "RUNNING ON ${{ runner.os }} ---"
+
+      - run: echo "BRANCH NAME IS ${{ github.ref }} ---"
+
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - run: echo "REPOSITORY CLONED ${{ github.repository }} --- "
+
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+
+      - run: echo "RESULT = ${{ job.status }} --- "
+      #- name: Test with pytest
+      #  run: |
+      #    pytest
