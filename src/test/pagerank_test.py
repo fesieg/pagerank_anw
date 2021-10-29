@@ -1,15 +1,9 @@
-# 0) General imports that need no further prep
-import sys, os
+# 0) General imports
 from unittest import TestCase
-
-# 1) Write necessary import folders to path for relative imports
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
 # 1.1) Import classes to test
 from app import pagerank
 
-# 2) Clean path after necessary imports have been made
-sys.path.remove(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
 class PageRankTests(TestCase):
     def setUp(self):
@@ -34,6 +28,7 @@ class PageRankTests(TestCase):
         for graph in self.graphs:
             # 1.1) Initialize a PageRank-Scenario
             app = pagerank.PageRankApp(graph, 1, 0.85, 15, False)
+            print(app)
             # 1.2) Test whether the amount of initialized nodes is equal to the length of nodes in the passed list
             assert len(app.graph.nodes) == len(graph)
     
@@ -54,6 +49,8 @@ class PageRankTests(TestCase):
             # 1.3) Compare the list with the expected results
             assert final_node_values == self.expected_results[n]
 
+    def test_malformed_graph(self):
+        pass
             
 
     
