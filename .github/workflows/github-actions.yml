@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version: [3.6, 3.7, 3.8, 3.9, 3.10]
 
     steps:
       - name: Set up Python ${{ matrix.python-version }}
@@ -17,10 +17,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      
       - run: echo "RUNNING ON ${{ runner.os }} ---"
-
-      - run: echo "BRANCH NAME IS ${{ github.ref }} ---"
 
       - name: Check out repository code
         uses: actions/checkout@v2
