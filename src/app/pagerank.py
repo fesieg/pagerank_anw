@@ -63,7 +63,7 @@ class Graph:
             return_string += f"page_title = {n.get_own_title_from_db()} page_id = {n.id} \n PageRank-Value = {n.rank_value} \n"
             total_value += n.rank_value
         return_string += f"\n TOTAL VALUE: {str(round(total_value, 6))} \n"
-        return return_string
+        return return_string, total_value
 
     def show_graph(self):
         for n in self.nodes:
@@ -85,25 +85,28 @@ class PageRankApp:
     """
     Class that represents a specific PageRank calculation scenario
     """
-    def __init__(self, scenario: list, default_rank: float, dampening_factor: float, iterations: int):
+    def __init__(self, scenario: list, default_rank: float, dampening_factor: float, iterations: int, verbosity: bool):
         """
         Constructor of class PageRankApp
         :param scenario: list of lists, each list containing incoming node ids for a node in the scenario
         :param default_rank: Page-Rank nodes start out with
         :param dampening_factor: dampening factor to be applied
         :param iterations: number of iterations to approximate result of system of linear equations for graph
+        :param verbosity: specifies whether full output is desired or just the final node value
         """
         self.scenario = scenario
         self.default_rank = default_rank
         self.dampening_factor = dampening_factor
         self.graph = Graph(self.build_graph())
         self.iterations = iterations
+        self.result = 0
+        self.verbose = verbosity
 
     def start(self):
         """
         starts execution
         """
-        self.iterate(verbose=False)
+        self.iterate()
 
     def build_graph(self):
         """
@@ -118,12 +121,11 @@ class PageRankApp:
                          list(set([self.scenario.index(n) for n in self.scenario if i in n]))))
         return nodes
 
-    def iterate(self, verbose: bool):
+    def iterate(self):
         """
         function iterate
         function that iterates over system of linear equations a specified amount of times
         uses updated page within each iteration
-        :params verbose: boolean that specifies if output is desired after each iteration
         """
         # 1) iterate _ times
         for _ in range(self.iterations):
@@ -141,13 +143,9 @@ class PageRankApp:
                 #    round to the 8th decimal
                 node.rank_value = (1 - self.dampening_factor) + self.dampening_factor * temp_sum
 
-            if verbose:
+            if self.verbose:
                 print("ITERATION " + str(_) + "\n " + self.graph.output() + "~~~~~~~~~~~~ \n")
         
-        print(f"FINAL NODE STATUS\n {self.graph.output()}")
+        self.result = self.graph.output()[1]
+        print(f"FINAL NODE STATUS\n {self.graph.output()[0]}")
         
-
-graph_one = [[1], [0]]
-graph_two = [[1], [0], [2]]
-graph_three = [[1], [0], [0, 1]]
-graph_four = [[], [0], [1]]
