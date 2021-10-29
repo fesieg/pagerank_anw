@@ -1,6 +1,7 @@
 name: build_and_test
 on: [push]
 jobs:
+  build:
    runs-on: ${{ matrix.os }}
    strategy:
     matrix:
