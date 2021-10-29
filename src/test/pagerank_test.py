@@ -50,7 +50,8 @@ class PageRankTests(TestCase):
             assert final_node_values == self.expected_results[n]
 
     def test_malformed_graph(self):
-        pass
+        # 1) Pass malformed graph ("should_fail") to __init__ function, expect TypeError
+        self.assertRaises(TypeError, pagerank.PageRankApp.__init__, "should_fail", 1, 0.85, 15, False)
             
 
     
