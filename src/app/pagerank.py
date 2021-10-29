@@ -132,7 +132,7 @@ class PageRankApp:
         """
         function iterate
         function that iterates over system of linear equations a specified amount of times
-        uses updated page within each iteration
+        uses updated pagerank within each iteration
         """
         # 1) iterate _ times
         for _ in range(self.iterations):
@@ -147,7 +147,6 @@ class PageRankApp:
                     temp_sum = temp_sum + self.graph.get_node(id).rank_value / len(self.graph.get_node(id).outgoing_ids)
 
                 # 6) update rank for current node using Page-Rank formula using dampening factor
-                #    round to the 8th decimal
                 node.rank_value = (1 - self.dampening_factor) + self.dampening_factor * temp_sum
 
             if self.verbose:
