@@ -49,7 +49,7 @@ class PageRankTests(TestCase):
             # 1.3) Compare the list with the expected results
             assert final_node_values == self.expected_results[n]
 
-    def test_malformed_graph(self):
+    def test_malformed_graph_throws_error(self):
         # 1) Pass malformed graph ("should_fail") to __init__ function, expect TypeError
         self.assertRaises(TypeError, pagerank.PageRankApp.__init__, "should_fail", 1, 0.85, 15, False)
             
