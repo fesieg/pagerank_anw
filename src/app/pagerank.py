@@ -109,12 +109,6 @@ class PageRankApp:
         self.result = 0
         self.verbose = verbosity
 
-    def start(self):
-        """
-        starts execution
-        """
-        self.iterate()
-
     def build_graph(self):
         """
         function build_graph
