@@ -144,7 +144,7 @@ class PageRankApp:
                 node.rank_value = (1 - self.dampening_factor) + self.dampening_factor * temp_sum
 
             if self.verbose:
-                print("ITERATION " + str(_) + "\n " + self.graph.output(self.verbose) + "~~~~~~~~~~~~ \n")
+                print("ITERATION " + str(_) + "\n " + str(self.graph.output(self.verbose)) + "~~~~~~~~~~~~ \n")
         
         self.result = self.graph.output(self.verbose)[1]
         print(f"FINAL NODE STATUS\n {self.graph.output(self.verbose)[0]}")
