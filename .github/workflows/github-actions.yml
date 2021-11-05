@@ -43,7 +43,7 @@ jobs:
         run: |
           python -m pytest ./src/test/
 
-      - name: Generate Report
+      - name: Generate coverage Report
         run: |
           pip install coverage
           coverage run -m pytest
