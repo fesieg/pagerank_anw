@@ -12,7 +12,7 @@ def main():
     # 1) Initialize specific PageRank-Scenario
     app = pagerank.PageRankApp(scenario=graph_four, default_rank=1, dampening_factor=0.85, iterations=15, verbosity=False)
     # 2) Start Execution)
-    app.start()
+    app.iterate()
     
 if __name__ == "__main__":
     main()

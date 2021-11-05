@@ -59,7 +59,7 @@ class Graph:
         function output
         :param verbose bool: specifies whether script should access the local db to extract node titles
         prints nodes and their values to the screen
-        :return return_string String current status of nodes
+        :return current status of nodes as string
         """
         return_string = ""
         total_value = 0
