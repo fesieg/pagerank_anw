@@ -39,7 +39,7 @@ class PageRankTests(TestCase):
             app = pagerank.PageRankApp(self.graphs[n], 1, 0.85, 15, False)
 
             # 1.2) Perform a PageRank-Calculation for the graph
-            app.start()
+            app.iterate()
 
             # 1.3) Save the final PageRank for each node to a list
             final_node_values = []
