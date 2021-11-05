@@ -5,7 +5,7 @@ import sqlite3
 from os import path as path
 cur_path = path.dirname(__file__)
 global db_file
-db_file = path.join(cur_path, "..\\..\\db\\my_wiki.sqlite")
+db_file = path.join(cur_path, path.join("..", "..", "db", "my_wiki.sqlite"))
 
 class PageNode:
     """
