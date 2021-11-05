@@ -27,7 +27,7 @@ class PageRankTests(TestCase):
         # 1) Iterate over all test graph scenarios
         for graph in self.graphs:
             # 1.1) Initialize a PageRank-Scenario
-            app = pagerank.PageRankApp(graph, 1, 0.85, 15, True)
+            app = pagerank.PageRankApp(graph, 1, 0.85, 15, False)
             print(app)
             # 1.2) Test whether the amount of initialized nodes is equal to the length of nodes in the passed list
             assert len(app.graph.nodes) == len(graph)
@@ -36,7 +36,7 @@ class PageRankTests(TestCase):
         # 1) Iterate over all test graph scenarios
         for n in range(len(self.graphs)):
             # 1.1) Initialize a PageRank-Scenario
-            app = pagerank.PageRankApp(self.graphs[n], 1, 0.85, 15, True)
+            app = pagerank.PageRankApp(self.graphs[n], 1, 0.85, 15, False)
 
             # 1.2) Perform a PageRank-Calculation for the graph
             app.iterate()
